@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const fetchuser = require('../middleware/fetchUser')
 require('dotenv').config();
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = "123";
 //Create a User using: POST "/api/auth/" Doesnot require Auth
 
 router.post(
@@ -61,6 +61,7 @@ router.post(
   ],
   async (req, res) => {
     //If there are errors, return bad request and errors
+    console.log(JWT_SECRET);
     const errors = validationResult(req);
     if (!errors.isEmpty) {
       return res.status(400).json({ errors: errors.array() });

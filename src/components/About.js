@@ -1,0 +1,10 @@
+import React, {useContext} from 'react'
+import noteContext from '../context/notes/noteContext'
+
+export default function About() {
+  return (
+    <div className="container">
+      
+      <h1>THis is aboutv</h1></div>
+  )
+}
