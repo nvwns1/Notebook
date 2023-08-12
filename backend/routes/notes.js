@@ -21,7 +21,7 @@ router.post(
   fetchuser,
   [
     body("title", "Enter a valid name").isLength({ min: 3 }),
-    body("description", "Password must be 5 character").isLength({ min: 5 }),
+    body("description", "Description must be 5 character").isLength({ min: 5 }),
   ],
   async (req, res) => {
     try {
@@ -29,7 +29,7 @@ router.post(
 
       //If there are errors, return bad request and errors
       const errors = validationResult(req);
-      if (!errors.isEmpty) {
+      if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
 
@@ -37,7 +37,7 @@ router.post(
         title,
         description,
         tag,
-        user: req.user.id,
+        user: req.user.id
       });
       const saveNote = await note.save();
 
