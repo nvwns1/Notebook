@@ -21,6 +21,7 @@ export default function NoteItem(props) {
           <button
             onClick={() => {
               deleteNote(note._id);
+              props.showAlert("Deleted Successfully", 'success')
             }}
           >
             Delete

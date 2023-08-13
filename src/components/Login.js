@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-export default function Login() {
+export default function Login(props) {
     const [credentials, setCredentials] = useState({email: "", password:""});
     let navigate = useNavigate();
     const handleSubmit = async (e)=>{
@@ -22,8 +22,9 @@ export default function Login() {
                 localStorage.setItem('token', json['auth-Token'])
                 //redirect
                 navigate("/");
+                props.showAlert('Login Successful', 'success')
             }else{
-                alert("Invalid")
+                props.showAlert("Invalid Credentials", 'danger')
             }
           } catch (error) {
             //handles errors that may occur during the API call or response processing
