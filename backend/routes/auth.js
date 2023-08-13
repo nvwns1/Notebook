@@ -18,17 +18,20 @@ router.post(
     body("password", "Password must be 5 character").isLength({ min: 5 }),
   ],
   async (req, res) => {
+    let success = false;
+
     //If there are errors, return bad request and errors
     const errors = validationResult(req);
     if (!errors.isEmpty) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({success, errors: errors.array() });
     }
+
 
     //check the user with same exists already
     try {
       let user = await User.findOne({ email: req.body.email });
       if (user) {
-        return res.status(400).json({ error: "Email already existed" });
+        return res.status(400).json({success, error: "Email already existed" });
       }
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
@@ -43,11 +46,12 @@ router.post(
           id: user.id,
         },
       };
+      success = true
       const authToken = jwt.sign(data, JWT_SECRET);
-      res.json(authToken);
+      res.json({success,"auth-Token": authToken});
     } catch (error) {
       console.log(error.message);
-      res.status(500).send("Some error occur");
+      res.status(500).json({success,error:"Some error occur"});
     }
   }
 );
