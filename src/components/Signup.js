@@ -30,7 +30,8 @@ export default function Signup(props) {
     setCredentials({...credentials, [e.target.name]: e.target.value})
   }
   return (
-    <div className="container">
+    <div className="container mt-3">
+      <h2>Create Account in Notebook</h2>
       <form onSubmit={handleSubmit}>
       <div className="mb-3">
           <label htmlFor="email" className="form-label">
